@@ -11,7 +11,10 @@ $user = new \App\Models\User();
 $sql = "SELECT * FROM users";
 $check = $db->run($sql);
 dump($db->fetch());*/
-$user->select('id, fullname')->where('fullname','Person A')->orWhere('age', 20, '>=')->orderBy('age')->orderBy('address', 'DESC')->limit(15)->offset(30);
 
-dump($user);
+$users = $user->get();
+
+//select('id, fullname')->where('fullname','Person A')->orWhere('age', 20, '>=')->orderBy('age')->orderBy('address', 'DESC')->limit(15)->offset(30)->
+dump($users);
+
 

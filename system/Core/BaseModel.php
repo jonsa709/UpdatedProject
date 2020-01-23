@@ -15,6 +15,8 @@ abstract class BaseModel
     protected $conditions;
     protected $offset = 0;
     protected $limit;
+    protected $sql;
+
 
     public function __construct()
     {
@@ -77,5 +79,49 @@ abstract class BaseModel
     {
         $this->limit = $value;
         return $this;
+    }
+
+    public function get()
+    {
+        $data = [];
+        $this->buildSelectQuery();
+
+        if($this->db->run($this->sql)){
+            $result = $this->db->fetch();
+
+            $classname = get_class($this);
+
+
+            foreach($result as $value){
+                $obj = new $classname;
+
+                foreach($value as $k => $v){
+                    $obj->{$k} = $v;
+                }
+
+                $data[] = $obj;
+            }
+        }
+        return $data;
+    }
+
+    private function buildSelectQuery()
+    {
+        $this->sql = "SELECT {$this->select} FROM {$this->table}";
+
+        if(!empty($this->conditions))
+        {
+            $this->sql .=" WHERE {$this->conditions}";
+        }
+
+        if(!empty($this->orderBy))
+        {
+            $this->sql .=" ORDER BY {$this->orderBy}";
+        }
+
+        if(!empty($this->limit))
+        {
+            $this->sql .=" LIMIT {$this->offset}, {$this->limit}";
+        }
     }
 }
