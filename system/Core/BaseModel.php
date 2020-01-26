@@ -4,6 +4,7 @@ namespace System\Core;
 
 
 use System\DB\Mysql;
+use System\Exceptions\DataNotLoadedException;
 
 abstract class BaseModel
 {
@@ -18,9 +19,13 @@ abstract class BaseModel
     protected $sql;
 
 
-    public function __construct()
+    public function __construct($id = null)
     {
         $this->db = new Mysql;
+
+        if(!is_null($id)){
+            $this->load($id);
+        }
     }
 
     public function getTable()
@@ -122,6 +127,101 @@ abstract class BaseModel
         if(!empty($this->limit))
         {
             $this->sql .=" LIMIT {$this->offset}, {$this->limit}";
+        }
+    }
+    public function first()
+    {
+        $data = $this->get();
+
+        if(!empty($data))
+        {
+            return $data[0];
+        }
+    }
+
+    private function resetVars()
+    {
+        $this->select = '*';
+        $this->conditions = null;
+        $this->orderBy = null;
+        $this->offset = 0;
+        $this->limit = null;
+        $this->sql = null;
+    }
+    public function load($id)
+    {
+        $this->sql = "SELECT * FROM {$this->table} WHERE {$this->pk} = '{$id}'";
+        if($this->db->run($this->sql)){
+            $data = $this->db->fetch();
+
+            if(!empty($data)){
+                foreach($data[0] as $k => $v){
+                    $this->{$k} = $v;
+                }
+                $this->resetVars();
+            }
+            else{
+                $classname = get_class($this);
+                throw new DataNotLoadedException("unable to find data for the class '{$classname}' with following conditions:'{$this->pk} = {$id}'");
+            }
+        }
+    }
+
+    public function save()
+    {
+       $data = $this->getDataArray();
+
+       $set = [];
+
+       foreach($data as $k => $v){
+           if(is_null($v) || empty($v))
+           {
+               $set[] = "{$k} = NULL";
+           }
+           else {
+           $set[] = "{$k} = '{$v}'";
+           }
+       }
+       if(isset($this->{$this->pk})&& !empty($this->{$this->pk}))
+       {
+           $this->sql = "UPDATE {$this->table} SET ".implode(",", $set)." WHERE {$this->pk} = '{$this->{$this->pk}}'";
+           $flg = 0;
+       }
+       else{
+           $this->sql = "INSERT INTO {$this->table} SET ".implode(", ", $set);
+           $flg = 1;
+
+
+       }
+       if($this->db->run($this->sql)){
+           $this->resetVars();
+
+           if($flg == 1){
+               $this->{$this->pk} = $this->db->insert_id();
+           }
+       }
+    }
+
+    private function getDataArray()
+    {
+        $predefined = get_class_vars(get_class($this));
+        $all = get_object_vars($this);
+
+        return array_diff_key($all, $predefined);
+    }
+
+    public function delete()
+    {
+        $this->sql = "DELETE FROM {$this->table} WHERE {$this->pk} = '{$this->{$this->pk}}'";
+
+        if($this->db->run($this->sql))
+        {
+            $data = $this->getDataArray();
+
+            foreach($data as $k => $v) {
+                unset($this->{$k});
+            }
+            $this->resetVars();
         }
     }
 }
