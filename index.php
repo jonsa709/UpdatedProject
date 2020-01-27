@@ -5,13 +5,14 @@ define("BASEDIR", __DIR__);
 
 require BASEDIR."/vendor/autoload.php";
 
-$user = new \App\Models\User(5);
+$article = new \App\Models\Article(11);
+$article->related(\App\Models\User::class, 'user_id', 'parent');
+dump($article->get());
 
-dump($user);
+/*$user = new \App\Models\User(1);
 
-$user->delete();
-
-dump($user);
+$user->related(\App\Models\Article::class, 'user_id', 'child')->get();
+dump($user->get());*/
 
 /*$db = new System\DB\Mysql;
 $sql = "SELECT * FROM users";

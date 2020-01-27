@@ -17,6 +17,7 @@ abstract class BaseModel
     protected $offset = 0;
     protected $limit;
     protected $sql;
+    protected $related = [];
 
 
     public function __construct($id = null)
@@ -94,7 +95,12 @@ abstract class BaseModel
         if($this->db->run($this->sql)){
             $result = $this->db->fetch();
 
-            $classname = get_class($this);
+            if(!empty($this->related)){
+                $classname = get_class($this->related['class']);
+            }
+            else{
+                $classname =  get_class($this);
+            }
 
 
             foreach($result as $value){
@@ -112,7 +118,21 @@ abstract class BaseModel
 
     private function buildSelectQuery()
     {
-        $this->sql = "SELECT {$this->select} FROM {$this->table}";
+        if(!empty($this->related)){
+            $tablename = $this->related['class']->getTable();
+
+            if($this->related['relation'] == 'child') {
+                $this->where($this->related['fk'], $this->{$this->pk});
+            }
+            else{
+                $this->where($this->related['class']->getpk(), $this->{$this->related['fk']});
+            }
+        }
+        else{
+            $tablename = $this->table;
+        }
+
+        $this->sql = "SELECT {$this->select} FROM {$tablename}";
 
         if(!empty($this->conditions))
         {
@@ -223,5 +243,17 @@ abstract class BaseModel
             }
             $this->resetVars();
         }
+    }
+
+    public function related($classname, $fk, $relation)
+    {
+        $obj = new $classname;
+
+        $this->related = [
+            'class' => $obj,
+            'fk' => $fk,
+            'relation' => $relation
+        ];
+        return $this;
     }
 }
