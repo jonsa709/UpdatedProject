@@ -5,9 +5,23 @@ define("BASEDIR", __DIR__);
 
 require BASEDIR."/vendor/autoload.php";
 
-$article = new \App\Models\Article(11);
-$article->related(\App\Models\User::class, 'user_id', 'parent');
-dump($article->get());
+echo 'Hola';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*$user = new \App\Models\User(1);
 
