@@ -5,7 +5,8 @@ define("BASEDIR", __DIR__);
 
 require BASEDIR."/vendor/autoload.php";
 
-echo 'Hola';
+    $app = new \System\core\SystemInit;
+    $app->start();
 
 
 

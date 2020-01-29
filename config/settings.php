@@ -4,5 +4,6 @@ $config = [
     'db_name' => 'demo',
     'db_host' => 'localhost',
     'db_user' => 'root',
-    'db_pass' => ''
+    'db_pass' => '',
+    'default_controller' => 'home'
 ];
