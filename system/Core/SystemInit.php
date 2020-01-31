@@ -4,6 +4,7 @@
 namespace System\Core;
 
 
+use System\Exceptions\ControllerNotValidException;
 use System\Exceptions\FileNotFoundException;
 
 class SystemInit
@@ -46,7 +47,7 @@ class SystemInit
             $parts = [
                 'controller' => ucfirst(config('default_controller')).'Controller',
                 'method' => 'index',
-                'argument' => 'null'
+                'argument' => null
             ];
         }
         return $parts;
@@ -57,6 +58,17 @@ class SystemInit
         $controller_file = BASEDIR."/app/Controllers/{$controller}.php";
         if(is_file($controller_file)){
 
+            $controller_class = "\App\Controllers\\{$controller}";
+            $obj = new $controller_class;
+
+            if($obj instanceof BaseController){
+                if(is_null($argument)) {
+                    $obj->{$method}();
+                }
+            }
+            else{
+                throw new ControllerNotValidException("Class '{$controller_class}' is not valid controller as it does not inherit '\System\Core\BaseController' class.");
+            }
         }
         else {
             throw new FileNotFoundException("Controller file '{$controller_file}' does not exist.");
