@@ -13,3 +13,10 @@ if(!function_exists('config')) {
         }
     }
 }
+
+if(!function_exists('view')){
+    function view($file, $data = []){
+        \System\Core\View::make($file, $data);
+
+    }
+}
