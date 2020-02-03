@@ -67,7 +67,7 @@ class SystemInit
                 }
             }
             else{
-                throw new ControllerNotValidException("Class '{$controller_class}' is not valid controller as it does not inherit '\System\Core\BaseController' class.");
+                throw new ControllerNotValidException("Class '{$controller_class}' is not valid controller as it does not inherit '\System\Core\BaseController' class");
             }
         }
         else {
