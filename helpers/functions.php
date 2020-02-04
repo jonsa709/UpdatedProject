@@ -15,8 +15,16 @@ if(!function_exists('config')) {
 }
 
 if(!function_exists('view')){
+
     function view($file, $data = []){
         \System\Core\View::make($file, $data);
+    }
+}
+
+if(!function_exists('url')){
+
+    function url($uri = '') {
+        return config('site_url').$uri;
 
     }
 }
