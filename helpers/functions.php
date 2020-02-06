@@ -28,3 +28,40 @@ if(!function_exists('url')){
 
     }
 }
+
+if(!function_exists('login_check')){
+
+    function login_check() {
+        if(isset($_SERVER['user']) && !empty($_SESSION['user'])) { //check whether the usr is set or not.
+            $user = new \App\Models\User;
+            $check = $user->select('id')->where('id',$_SESSION['user'])->first();
+
+            if(!is_null($check)){
+                return true;
+
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+}
+if(!function_exists('redirect')){
+    function redirect($url) {
+        header("location: {$url}");
+        die;
+    }
+}
+
+if(!function_exists('auth')) {
+    function auth($url)
+    {
+        if (!login_check()) {
+            //header("location".url('login')); //for redirect before login(if login password is wrong).. if function is not created
+            redirect($url); // if function is created
+        }
+    }
+}
