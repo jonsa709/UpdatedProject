@@ -32,7 +32,7 @@ if(!function_exists('url')){
 if(!function_exists('login_check')){
 
     function login_check() {
-        if(isset($_SERVER['user']) && !empty($_SESSION['user'])) { //check whether the usr is set or not.
+        if(isset($_SESSION['user']) && !empty($_SESSION['user'])) { //check whether the user is set or not
             $user = new \App\Models\User;
             $check = $user->select('id')->where('id',$_SESSION['user'])->first();
 
@@ -45,7 +45,23 @@ if(!function_exists('login_check')){
             }
         }
         else{
-            return false;
+            if(isset($_COOKIE['user']) && !empty($_COOKIE['user'])) {
+                $user = new \App\Models\User;
+                $check = $user->select('id')->where('id',$_COOKIE['user'])->first();
+
+                if(!is_null($check)){
+                    $_SESSION['user'] = $check->id;
+                    return true;
+
+                }
+                else{
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+
         }
     }
 }
@@ -63,5 +79,36 @@ if(!function_exists('auth')) {
             //header("location".url('login')); //for redirect before login(if login password is wrong).. if function is not created
             redirect($url); // if function is created
         }
+    }
+}
+
+if(!function_exists('set_message')){
+
+    function set_message($message, $level = 'info') {
+        $_SESSION['message']=[
+            'content' => $message,
+            'level' => $level
+        ];
+    }
+}
+
+if(!function_exists('get_message')){
+
+    function get_message() {
+        return $_SESSION['message'];
+    }
+}
+
+if(!function_exists('delete_message')){
+
+    function delete_message(){
+        unset($_SESSION['message']);
+    }
+}
+
+if(!function_exists('check_message')){
+
+    function check_message(){
+        return isset($_SESSION['message']) &&!empty($_SESSION['message']);
     }
 }
