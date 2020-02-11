@@ -10,6 +10,11 @@ use System\Core\BaseController;
 class LoginController extends BaseController
 
 {
+    public function __construct()
+    {
+        guest(url('dashboard'));
+    }
+
     public function index()
     {
         view('cms/login/index.php');

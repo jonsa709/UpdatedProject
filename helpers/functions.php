@@ -67,7 +67,7 @@ if(!function_exists('login_check')){
 }
 if(!function_exists('redirect')){
     function redirect($url) {
-        header("location: {$url}");
+        header("location:{$url}");
         die;
     }
 }
@@ -110,5 +110,20 @@ if(!function_exists('check_message')){
 
     function check_message(){
         return isset($_SESSION['message']) &&!empty($_SESSION['message']);
+    }
+}
+if(!function_exists('guest')){
+
+    function guest($url){
+        if(login_check()) {
+            redirect($url);
+        }
+    }
+}
+
+if(!function_exists('user')){
+    function User()
+    {
+        return new \App\Models\User($_SESSION['user']);
     }
 }
