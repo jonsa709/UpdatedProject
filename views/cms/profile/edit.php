@@ -19,7 +19,7 @@
                         </div>
                         <div class="form-group">
                             <label for="middle_name">Middle Name</label>
-                            <input type="text" name="middle_name" id="middle_name" class="form-control" value="<?php echo $user->middle_name?>" required>
+                            <input type="text" name="middle_name" id="middle_name" class="form-control" value="<?php echo $user->middle_name?>" >
                         </div>
                         <div class="form-group">
                             <label for="last_name">Last Name</label>

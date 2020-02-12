@@ -38,6 +38,29 @@ class ProfileController extends BaseController
 
     public function password()
     {
-
+        view('cms/profile/password.php');
     }
+
+    public function change()
+    {
+        extract($_POST);
+
+        $user = user();
+
+        if($user->password == sha1($Old_password)){ //"($Old_password)" must be same with name of password.php
+            $user->password = sha1($password);
+            $user->updated_at = date('Y-m-d H:i:s');
+            $user->save();
+
+            set_message('Password changed.', 'success');
+            redirect(url('profile/password'));
+
+        }
+        else{
+            set_message('Old password is incorrect.', 'danger');
+
+            redirect(url('profile/password'));
+        }
+    }
+
 }
