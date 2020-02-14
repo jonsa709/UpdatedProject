@@ -60,23 +60,28 @@ class SystemInit
 
     private function run($controller, $method, $argument = null)
     {
-        $controller_file = BASEDIR."/app/Controllers/{$controller}.php";
-        if(is_file($controller_file)){
+        $controller_file = BASEDIR . "/app/Controllers/{$controller}.php";
+        if (is_file($controller_file)) {
 
             $controller_class = "\App\Controllers\\{$controller}";
             $obj = new $controller_class;
 
-            if($obj instanceof BaseController){
-                if(is_null($argument)) {
+            if ($obj instanceof BaseController) {
+                if (is_null($argument)) {
                     $obj->{$method}();
                 }
+                else {
+                    $obj->{$method} ($argument);
+                }
+
+            } else {
+                throw new ControllerNotValidException("Class '{$controller_class}' is not valid controller as it does not inherit '\System\Core\BaseController' class.");
             }
-            else{
-                throw new ControllerNotValidException("Class '{$controller_class}' is not valid controller as it does not inherit '\System\Core\BaseController' class");
+            }
+
+
+            else {
+                    throw new FileNotFoundException("Controller file '{$controller_file}' does not exist.");
+                }
             }
         }
-        else {
-            throw new FileNotFoundException("Controller file '{$controller_file}' does not exist.");
-        }
-    }
-}

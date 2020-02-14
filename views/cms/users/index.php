@@ -23,6 +23,9 @@
                             <th>Email</th>
                             <th>Address</th>
                             <th>Phone</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -33,6 +36,15 @@
                             <td><?php echo $user->email; ?></td>
                             <td><?php echo $user->address; ?></td>
                             <td><?php echo $user->phone; ?></td>
+                            <td><?php echo $user->status; ?></td>
+                            <td><?php echo $user->created_at; ?></td>
+                            <td><?php echo $user->updated_at; ?></td>
+                            <td>
+                                <a href="<?php echo url('users/edit/'.$user->id) ?>" class="btn btn-outline-primary btn-sm">Edit</a>
+
+                            <td>
+                                <a href="<?php echo url('users/destroy/'.$user->id) ?>" class="btn btn-outline-danger btn-sm">Delete</a>
+                            </td>
                         </tr>
                         <?php endforeach; ?>
                         </tbody>
