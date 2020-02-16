@@ -10,7 +10,7 @@
                     <h1>Users</h1>
                 </div>
                 <div class="col-auto">
-                <a href="<?php echo url('users/create'); ?>" class="btn-outline-primary mt-2"><i class="fas fa-plus mr-2"></i>Add User</a>
+                <a href="<?php echo url('users/create'); ?>" class="btn btn-outline-primary mt-2"><i class="fas fa-plus mr-2"></i>Add User</a>
                 </div>
             </div>
             <div class="row">
@@ -43,7 +43,7 @@
                                 <a href="<?php echo url('users/edit/'.$user->id) ?>" class="btn btn-outline-primary btn-sm">Edit</a>
 
                             <td>
-                                <a href="<?php echo url('users/destroy/'.$user->id) ?>" class="btn btn-outline-danger btn-sm">Delete</a>
+                                <a href="<?php echo url('users/destroy/'.$user->id) ?>" class="btn btn-outline-danger btn-sm delete">Delete</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

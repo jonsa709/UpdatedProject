@@ -12,6 +12,11 @@ class UsersController extends BaseController
     public function __construct()
     {
         auth(url('login'));
+
+        if(user()->type == 'User') {
+            set_message('Access Denied', 'danger');
+            redirect(url('dashboard'));
+        }
     }
 
     public function index()
@@ -76,6 +81,14 @@ class UsersController extends BaseController
         $user->save();
 
         set_message('user updated.', 'success');
+        redirect(url('users'));
+    }
+
+    public function destroy($id){
+        $user = new User($id);
+        $user->delete();
+
+        set_message('User removed.','success');
         redirect(url('users'));
     }
 }
