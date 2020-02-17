@@ -22,9 +22,11 @@ class UsersController extends BaseController
     public function index()
     {
         $user = new User;
-        $users = $user->where('type','User')->get();
+        $paginate = $user->where('type','User')->paginate(3);
 
-        view('cms/users/index.php', compact('users'));
+        $users = $paginate['data'];
+
+        view('cms/users/index.php', compact('users','paginate'));
     }
     public function create()
     {

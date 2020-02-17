@@ -49,6 +49,7 @@
                         <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <?php view('cms/includes/pagination.php', compact('paginate')); ?>
                     <?php else: ?>
                         <div class="text-center text-muted font-weight-bold mb-3"><small>No users found.</small>
                         </div>
