@@ -8,7 +8,7 @@ use System\Core\BaseModel;
 
 class Category extends BaseModel
 {
-    protected $table = 'articles';
+    protected $table = 'categories';
     public function articles()
     {
         return $this->related(Article::class, 'category-id', 'child');

@@ -68,9 +68,7 @@ class UsersController extends BaseController
         $user = new User($id);
 
         extract($_POST);
-
         $password =sha1($password);
-
 
         $user->first_name = $first_name;
         $user->middle_name = $middle_name;

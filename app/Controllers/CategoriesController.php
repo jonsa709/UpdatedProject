@@ -19,7 +19,7 @@ class CategoriesController extends BaseController
     public function index()
     {
         $category = new Category;
-        $paginate = $category->paginate(3);
+        $paginate = $category->paginate();
 
         $categories = $paginate['data'];
 
@@ -60,8 +60,6 @@ class CategoriesController extends BaseController
 
         extract($_POST);
 
-
-        $category = new Category();
         $category->name = $name;
         $category->slug = $slug;
         $category->status = $status;

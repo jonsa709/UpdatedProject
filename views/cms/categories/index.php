@@ -30,15 +30,13 @@ view('cms/includes/nav.php');
                         <tbody>
                         <?php foreach ($categories as $category): ?>
                             <tr>
-                                <td><?php echo "{$category->name}"; ?></td>
+                                <td><?php echo $category->name; ?></td>
                                 <td><?php echo $category->slug; ?></td>
                                 <td><?php echo $category->status; ?></td>
                                 <td><?php echo $category->created_at; ?></td>
                                 <td><?php echo $category->updated_at; ?></td>
                                 <td>
                                     <a href="<?php echo url('categories/edit/'.$category->id) ?>" class="btn btn-outline-primary btn-sm">Edit</a>
-
-                                <td>
                                     <a href="<?php echo url('categories/destroy/'.$category->id) ?>" class="btn btn-outline-danger btn-sm delete">Delete</a>
                                 </td>
                             </tr>
