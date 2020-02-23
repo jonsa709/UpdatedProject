@@ -29,13 +29,20 @@ view('cms/includes/nav.php');
 
                     <div class="form-group">
                         <label for="featured_image">Featured Image</label>
-                        <input type="file" name="featured_image" id="featured_image" class="form-control" accept="image/*" required>
-                        <br><br>
-                        <button type="submit">Submit</button>
+                        <input type="file" name="featured_image" id="featured_image" class="form-control-file" accept="image/*" >
+                            <div class="img-preview mt-3"></div>
                     </div>
                     <div class="form-group">
-                        <label for="category_id">Category Id</label>
-                        <input type="text" name="category_id" id="category_id" class="form-control" required>
+                        <label for="published_at">Published At</label>
+                        <input type="text" name="published_at" id="published_at" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="category_id">Category</label>
+                        <select name="category_id" id="category_id" class="form-control" required>
+                        <?php foreach ($categories as $category): ?>
+                            <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="status">Status</label>
@@ -46,7 +53,7 @@ view('cms/includes/nav.php');
                         </select>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-save mr2"></i>Save</button>
+                        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-save mr-2"></i>Save</button>
                     </div>
                 </form>
             </div>

@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use System\Core\BaseController;
 
 
@@ -25,7 +26,12 @@ class ArticlesController extends BaseController
     }
     public function create()
     {
-        view('cms/articles/create.php');
+        $category = new Category;
+        $categories = $category->select('id, name')
+                        ->where('status','active')
+                        ->get();
+
+        view('cms/articles/create.php',compact('categories'));
 
     }
 

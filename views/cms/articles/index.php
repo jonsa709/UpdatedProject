@@ -23,7 +23,7 @@ view('cms/includes/nav.php');
                             <th>Slug</th>
                             <th>Content</th>
                             <th>Featured Image</th>
-                            <th>Category Id</th>
+                            <th>Category</th>
                             <th>Status</th>
                             <th>Created At</th>
                             <th>Updated At</th>
@@ -36,13 +36,16 @@ view('cms/includes/nav.php');
                             <tr>
                                 <td><?php echo $article->name; ?></td>
                                 <td><?php echo $article->slug; ?></td>
-                                <td><?php echo $article->content; ?></td>
-                                <td><?php echo $article->featured_image; ?></td>
-                                <td><?php echo $article->category_id; ?></td>
+                                <td>
+                                    <?php if (!empty($article->featured_image)): ?>
+                                        <img src="<?php echo url('assets/images/'.$article->featured_image); ?>" class="small">
+                                    <?php endif; ?>
+                                </td>
+                                <td><?php echo $article->category()->first()->name; ?></td>
                                 <td><?php echo $article->status; ?></td>
                                 <td><?php echo $article->created_at; ?></td>
                                 <td><?php echo $article->updated_at; ?></td>
-                                <td><?php echo $article->published_at; ?></td>
+                                <td><?php echo $article->published_at ?? ''; ?></td>
                                 <td>
                                     <a href="<?php echo url('articles/edit/'.$article->id) ?>" class="btn btn-outline-primary btn-sm">Edit</a>
                                     <a href="<?php echo url('articles/destroy/'.$article->id) ?>" class="btn btn-outline-danger btn-sm delete">Delete</a>
@@ -58,7 +61,6 @@ view('cms/includes/nav.php');
                 <?php endif; ?>
 
             </div>
-
         </div>
     </div>
 </main>
