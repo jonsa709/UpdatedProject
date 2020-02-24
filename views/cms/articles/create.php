@@ -34,7 +34,7 @@ view('cms/includes/nav.php');
                     </div>
                     <div class="form-group">
                         <label for="published_at">Published At</label>
-                        <input type="text" name="published_at" id="published_at" class="form-control">
+                        <input type="text" name="published_at" id="published_at" class="form-control datetime">
                     </div>
                     <div class="form-group">
                         <label for="category_id">Category</label>

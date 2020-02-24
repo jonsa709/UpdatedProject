@@ -32,4 +32,9 @@ $(function () {
         }
     });
     <!-- previewing image -->
+
+    $('.datetime').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss'
+    });
+
 });
