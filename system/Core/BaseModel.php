@@ -107,7 +107,7 @@ abstract class BaseModel
                 $obj = new $classname;
 
                 foreach($value as $k => $v){
-                    $obj->{$k} = $v;
+                    $obj->{$k} = htmlspecialchars_decode($v, ENT_QUOTES);
                 }
 
                 $data[] = $obj;
@@ -176,7 +176,7 @@ abstract class BaseModel
 
             if(!empty($data)){
                 foreach($data[0] as $k => $v){
-                    $this->{$k} = $v;
+                    $this->{$k} = htmlspecialchars_decode($v, ENT_QUOTES);
                 }
                 $this->resetVars();
             }
@@ -199,7 +199,8 @@ abstract class BaseModel
                $set[] = "{$k} = NULL";
            }
            else {
-           $set[] = "{$k} = '{$v}'";
+                $v = htmlspecialchars($v, ENT_QUOTES);
+                $set[] = "{$k} = '{$v}'";
            }
        }
        if(isset($this->{$this->pk})&& !empty($this->{$this->pk}))
