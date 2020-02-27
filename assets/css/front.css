@@ -6,10 +6,22 @@ body {
     font-size: 35px;
 }
 
+.image {
+    max-width:100%;
+    height:auto;
+}
+
 .social-link {
     font-size: 30px;
 }
 
 .social-link a:hover, .social-link:focus {
     text-decoration: none;
+}
+
+.img-list {
+    height: 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }

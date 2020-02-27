@@ -18,7 +18,7 @@ class ArticlesController extends BaseController
     public function index()
     {
         $article = new Article();
-        $paginate = $article->paginate(5);
+        $paginate = $article->paginate(6);
 
         $articles = $paginate['data'];
 
