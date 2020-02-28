@@ -14,12 +14,12 @@
             <ul class="navbar-nav mr-auto">
                 <?php foreach ($categories as $link): ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><?php echo $link->name;?></a>
+                    <a class="nav-link" href="<?php echo url("category/{$link->slug}") ?>"><?php echo $link->name; ?></a>
                 </li>
                 <?php endforeach; ?>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="form-inline my-2 my-lg-0" method="get" action="<?php echo url('search'); ?>">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="term" required>
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>

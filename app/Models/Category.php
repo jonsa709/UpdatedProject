@@ -11,6 +11,6 @@ class Category extends BaseModel
     protected $table = 'categories';
     public function articles()
     {
-        return $this->related(Article::class, 'category-id', 'child');
+        return $this->related(Article::class, 'category_id', 'child');
     }
 }
