@@ -52,7 +52,7 @@
                     <h4>Contact Us</h4>
                 </div>
                 <div class="col-12">
-                    <form>
+                    <form method="post" action="<?php echo url('message'); ?>">
                         <div class="form-group">
                             <input type="text" name="name" class="form-control" placeholder="Enter your Name" required>
                         </div>
@@ -73,6 +73,8 @@
 
 </footer>
 </div>
+
+<?php view('front/includes/messages.php'); ?>
 
 <script src="<?php echo url('assets/js/jquery-3.4.1.js'); ?>"></script>
 <script src="<?php echo url('assets/js/bootstrap.js'); ?>"></script>
