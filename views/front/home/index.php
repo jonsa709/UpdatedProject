@@ -10,7 +10,7 @@
                         <?php echo $breaking->name; ?>
                     </div>
                     <?php if(!empty($breaking->featured_image)): ?>
-                    <div class="col-6 image">
+                    <div class="col-lg-6">
                         <img src="<?php echo url("assets/images/{$breaking->featured_image}"); ?>" class="img-fluid">
                     </div>
                     <?php endif; ?>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="row">
                     <?php foreach($articles as $article): ?>
-                    <div class="col-3 mb-3">
+                    <div class="col-lg-3 col-sm-6 mb-3">
                         <div class="row">
                             <div class="col-12">
                                 <?php

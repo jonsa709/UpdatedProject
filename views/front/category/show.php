@@ -9,7 +9,7 @@
                 <div class="row">
                     <?php if(!empty($articles)): ?>
                     <?php foreach($articles as $article): ?>
-                    <div class="col-3 mb-3">
+                    <div class="col-lg-3 col-sm-6 mb-3">
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
