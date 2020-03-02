@@ -40,7 +40,7 @@ view('cms/includes/nav.php');
                                         <img src="<?php echo url('assets/images/'.$article->featured_image); ?>" class="small">
                                     <?php endif; ?>
                                 </td>
-                                <td><?php echo $article->category()->name; ?></td>
+                                <td><?php echo $article->category()->first()->name; ?></td>
                                 <td><?php echo $article->status; ?></td>
                                 <td><?php echo $article->created_at; ?></td>
                                 <td><?php echo $article->updated_at; ?></td>
